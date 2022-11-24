@@ -7,8 +7,11 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AllPlayer {
-  private int playerId;
-  private String playerName;
-  private String teamName;
+public class Error {
+  private long timestamp;
+  private int status;
+  private String error;
+  private String exception;
+  private String message;
+  private String path;
 }

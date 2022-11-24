@@ -1,46 +1,46 @@
 package backend;
 
-import static config.WorldcupConfig.Teams_URL;
-import static io.restassured.RestAssured.given;
-
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
+import backend.team.Team;
+import backend.team.TeamClient;
 import java.util.LinkedHashMap;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.Helper;
 
-public class TeamTest extends TeamAssert{
+/**
+ * TeamTest class is created to test the functionalities such as Create team , create team with
+ * existing team name.
+ */
+public class TeamTest {
+
   public LinkedHashMap<String, String> queryparams = new LinkedHashMap<String, String>();
-  public static final String teamName = Helper.generateRandomChar(8);
-  /**
-   *
-   */
+  public String randomTeamName = Helper.getRandomName();
+
   @Test(priority = 0)
   public void testCreateTeamWithValidData() {
-    queryparams.put("teamName", teamName);
-    RequestSpecification requestSpec = RestAssured.given();
-    requestSpec.queryParams(queryparams);
-    Response response = given().log().all()
-        .spec(requestSpec)
-        .when().post(Teams_URL)
-        .then().log().all()
-        .extract().response();
-    response.asPrettyString();
-    verifyCreateTeamWithValidData(response,teamName);
+    Team createdTeam = TeamClient.createTeam(randomTeamName);
+    assertCreateTeamWithValidData(createdTeam, randomTeamName);
   }
 
+  /**
+   * this test method will fail as we are expecting 400 as status code and error as Bad request
+   * instead on 500 internal server error
+   */
   @Test(priority = 1)
   public void testCreateTeamWithExistingData() {
-    queryparams.put("teamName", teamName);
-    RequestSpecification requestSpec = RestAssured.given();
-    requestSpec.queryParams(queryparams);
-    Response response = given().log().all()
-        .spec(requestSpec)
-        .when().post(Teams_URL)
-        .then().log().all()
-        .extract().response();
-    response.asPrettyString();
-    verifyCreateTeamWithExistingData(response,teamName);
+    Error error = TeamClient.createTeamWithExistingData(randomTeamName);
+    assertCreateTeamWithExistingData(error, randomTeamName);
+  }
+
+  public void assertCreateTeamWithValidData(Team createdTeam, String teamName) {
+    Assert.assertNotNull(createdTeam.getTeamId());
+    Assert.assertEquals(teamName, createdTeam.getTeamName());
+  }
+
+  public void assertCreateTeamWithExistingData(Error error, String teamName) {
+    Assert.assertEquals("Bad Request", error.getError());
+    Assert.assertEquals("java.lang.IllegalStateException", error.getException());
+    Assert.assertEquals(teamName + " already exists", error.getMessage());
+    Assert.assertEquals("/teams/", error.getPath());
   }
 }

@@ -17,6 +17,9 @@ public class Helper {
     return sb.toString();
   }
 
+  public static String getRandomName(){
+    return generateRandomChar(8);
+  }
   public static String getRandomNumber() {
     Random random = new Random();
     int number = random.nextInt(9999999);
