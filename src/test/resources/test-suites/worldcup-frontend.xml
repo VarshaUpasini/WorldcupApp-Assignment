@@ -6,9 +6,9 @@
   </listeners>
   <test name="Test">
     <classes>
-      <class name="web.HomeTest"/>
-      <class name="web.PlayerTest"/>
-      <class name="web.TeamTest"/>
+      <class name="frontend.HomeTest"/>
+      <class name="frontend.PlayerTest"/>
+      <class name="frontend.TeamTest"/>
     </classes>
   </test>
 </suite>

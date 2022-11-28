@@ -8,8 +8,7 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import utils.Reporting;
-import web.BaseTest;
-import web.HomeTest;
+import frontend.BaseTest;
 
 public class Listeners extends BaseTest implements ITestListener {
 
