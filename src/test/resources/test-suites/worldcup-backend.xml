@@ -1,5 +1,12 @@
-<suite name="Worldcup Backend Suite">
-  <test name="Test">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite parallel="tests" name="Worldcup Backend Suite">
+  <groups>
+    <run>
+      <include name="P0"></include>
+    </run>
+  </groups>
+  <test thread-count="5" name="Test">
     <classes>
       <class name="backend.TeamTest"/>
       <class name="backend.PlayerTest"/>

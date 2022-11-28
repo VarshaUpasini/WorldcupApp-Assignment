@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Worldcup Frontend Suite">
+  <listeners>
+    <listener class-name="setup.Listeners"/>
+  </listeners>
+  <test name="Test">
+    <classes>
+      <class name="web.HomeTest"/>
+      <class name="web.PlayerTest"/>
+      <class name="web.TeamTest"/>
+    </classes>
+  </test>
+</suite>
