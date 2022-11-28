@@ -1,4 +1,4 @@
-package web;
+package frontend;
 
 import frontend.pageobjects.Teams;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package web;
+package frontend;
 
 import frontend.pageobjects.Home;
 import io.github.bonigarcia.wdm.WebDriverManager;
