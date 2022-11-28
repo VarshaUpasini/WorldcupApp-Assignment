@@ -22,9 +22,15 @@
     <rest-assured-all.version>4.4.0</rest-assured-all.version>
     <json-schema-validator.version>4.4.0</json-schema-validator.version>
     <json-path.version>4.4.0</json-path.version>
-    <selenium.version>3.141.59</selenium.version>
-    <webdrivermanager.version>4.3.1</webdrivermanager.version>
+    <selenium.version>4.4.0</selenium.version>
+    <webdrivermanager.version>5.3.1</webdrivermanager.version>
     <logback-core.version>1.4.5</logback-core.version>
+    <extentreports.version>5.0.8</extentreports.version>
+    <mysql-connector-j.verison>8.0.31</mysql-connector-j.verison>
+    <guava.version>31.1-jre</guava.version>
+    <logback-core.version>1.2.6</logback-core.version>
+    <slf4j-api.version>1.7.30</slf4j-api.version>
+   <logback-classic.version>1.2.6</logback-classic.version>
   </properties>
 
   <dependencies>
@@ -120,11 +126,56 @@
       <version>${webdrivermanager.version}</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
+    </dependency>
+
+    <!-- aventstack-extent-reports -->
+    <dependency>
+      <groupId>com.aventstack</groupId>
+      <artifactId>extentreports</artifactId>
+      <version>${extentreports.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+    <dependency>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <version>${mysql-connector-j.verison}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>${logback-core.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.30</version>
+      <version>${slf4j-api.version}</version>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.21</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.7</version>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback-classic.version}</version>
     </dependency>
 
   </dependencies>

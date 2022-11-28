@@ -2,6 +2,8 @@ package backend;
 
 import backend.player.Player;
 import backend.player.PlayerClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -13,6 +15,7 @@ import utils.Helper;
  * view players with valid id and view player with invalid id.
  */
 public class PlayerTest {
+  private final Logger logger = LoggerFactory.getLogger(PlayerTest.class);
 
   @DataProvider(name = "teamDetails")
   public Object[][] teamDetails() {
@@ -34,29 +37,33 @@ public class PlayerTest {
   /**
    * @param team fetches the values from dataprovider teamDetails
    */
-  @Test(dataProvider = "teamDetails", priority = 1)
+  @Test(dataProvider = "teamDetails", priority = 1, groups = {"P0"})
   public void testCreatePlayerWithValidData(String team) {
     String randomPlayerName = Helper.getRandomName();
     Player createdPlayer = PlayerClient.createPlayer(team, randomPlayerName);
     assertCreatedPlayer(createdPlayer, randomPlayerName, team);
+    logger.info(randomPlayerName + "has been added to " + team + "team.");
+    logger.info("Test verified successfully");
   }
 
   /**
    * test method to view all players
    */
-  @Test
+  @Test(groups = {"P0"})
   public void testViewAllPlayers() {
     Player[] viewPlayer = PlayerClient.viewAllPlayers();
     assertViewAllPlayers(viewPlayer);
+    logger.info("Test verified successfully");
   }
 
   /**
    * @param id fetches the value from data provider playerId
    */
-  @Test(dataProvider = "playerId")
+  @Test(dataProvider = "playerId",groups = {"P0"})
   public void testFetchPlayerByIdWithValidData(int id) {
     Player fetchPlayerByIdWithValidData = PlayerClient.fetchPlayerByIdWithValidData(id);
     verifyFetchPlayerByIdWithValidData(fetchPlayerByIdWithValidData, id);
+    logger.info("Test player fetched successfully");
   }
 
   /**
@@ -65,10 +72,11 @@ public class PlayerTest {
    *           are expecting 400 as status code and error as Bad request instead on 500 internal
    *           server error
    */
-  @Test(dataProvider = "invalidPlayerId")
+  @Test(dataProvider = "invalidPlayerId",groups = {"P1"})
   public void testFetchPlayerByIdWithInvalidData(int id) {
     Error error = PlayerClient.fetchPlayerByIdWithInvalidData(id);
     verifyFetchPlayerByIdWithInvalidData(error, id);
+    logger.info("Test verified successfully");
   }
 
   public void assertCreatedPlayer(Player player, String playerName, String team) {
