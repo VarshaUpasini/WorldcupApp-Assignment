@@ -10,6 +10,7 @@ public class TeamTest extends BaseTest {
   private final Logger logger = LoggerFactory.getLogger(TeamTest.class);
   Teams teams;
 
+  /* test to create new team */
   @Test
   public void testCreateTeam() {
     teams = new Teams(driver);
@@ -18,6 +19,7 @@ public class TeamTest extends BaseTest {
     logger.info("Team created successfully");
   }
 
+  /* test to create team with existing team */
   @Test
   public void testCreateExistingTeam() throws Exception {
     teams = new Teams(driver);
@@ -27,6 +29,7 @@ public class TeamTest extends BaseTest {
     logger.info("Test verified successfully");
   }
 
+  /* test to view the team */
   @Test
   public void testViewTeamList() {
     teams = new Teams(driver);
