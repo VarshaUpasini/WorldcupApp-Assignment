@@ -27,8 +27,7 @@ public class TeamTest {
   }
 
   /**
-   * this test method will fail as we are expecting 400 as status code and error as Bad request
-   * instead on 500 internal server error
+   * test the response when existing team name is passed
    */
   @Test(priority = 1, groups = {"P1"})
   public void testCreateTeamWithExistingData() {

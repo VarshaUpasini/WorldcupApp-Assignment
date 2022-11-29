@@ -15,16 +15,20 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
 
-  public static WebDriver driver;
+  private static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
+  public WebDriver driver;
   public Home home;
 
   public WebDriver initializeDriver() throws IOException {
-    //to fetch property value from properties file
+    /*to fetch property value from properties file*/
     Properties prop = new Properties();
     FileInputStream fis = new FileInputStream(
         System.getProperty("user.dir") + "\\src\\main\\java\\config\\Global.properties");
@@ -56,15 +60,17 @@ public class BaseTest {
   public String getScreenshot(String testCaseName, WebDriver driver) throws IOException {
     TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
     File source = takesScreenshot.getScreenshotAs(OutputType.FILE);
-    File file = new File(System.getProperty("user.dir") + "\\reports\\" + testCaseName + ".png");
+    String filePath = System.getProperty("user.dir") + "\\reports\\" + testCaseName + ".png";
+    File file = new File(filePath);
     FileUtils.copyFile(source, file);
-    System.out.println("********************************" + System.getProperty("user.dir") + "\\reports\\" + testCaseName + ".png");
-    return (System.getProperty(("user.dir") + "\\reports\\" + testCaseName + ".png"));
+    logger.info(System.getProperty("user.dir") + "\\reports\\" + testCaseName + ".png");
+    return (filePath);
   }
 
   @BeforeMethod(alwaysRun = true)
-  public Home launchHome() throws IOException {
+  public Home launchHome(ITestResult result) throws IOException {
     driver = initializeDriver();
+    result.setAttribute("driver", driver);
     home = new Home(driver);
     home.goTo();
     return home;

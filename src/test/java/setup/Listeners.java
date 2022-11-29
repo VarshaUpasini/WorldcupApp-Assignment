@@ -2,13 +2,13 @@ package setup;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import frontend.BaseTest;
 import java.io.IOException;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import utils.Reporting;
-import frontend.BaseTest;
 
 public class Listeners extends BaseTest implements ITestListener {
 
@@ -32,26 +32,16 @@ public class Listeners extends BaseTest implements ITestListener {
   @Override
   public void onTestFailure(ITestResult result) {
     ITestListener.super.onTestFailure(result);
-    //test = extentReport.createTest(result.getMethod().getMethodName());
     extentTest.get().fail(result.getThrowable());
-    //test.fail(result.getThrowable() + "Test Failed");
 
     //Attach screenshot to the report
-
+    WebDriver driver = (WebDriver) result.getAttribute("driver");
     try {
-      driver = (WebDriver) result.getTestClass().getRealClass().getField("driver")
-          .get(result.getInstance());
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    String filePath = null;
-    try {
-      filePath = getScreenshot(result.getMethod().getMethodName(),driver);
+      test.addScreenCaptureFromPath(getScreenshot(result.getMethod().getMethodName(), driver),
+          result.getMethod().getMethodName());
     } catch (IOException e) {
       e.printStackTrace();
     }
-    test.addScreenCaptureFromPath(filePath, result.getMethod().getMethodName());
   }
 
   @Override

@@ -9,12 +9,12 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utils.Helper;
 
-
 /**
  * PlayerTest class created to test the functionalities such as Create players , view all players ,
  * view players with valid id and view player with invalid id.
  */
 public class PlayerTest {
+
   private final Logger logger = LoggerFactory.getLogger(PlayerTest.class);
 
   @DataProvider(name = "teamDetails")
@@ -23,19 +23,8 @@ public class PlayerTest {
         {"Sweden"}};
   }
 
-  @DataProvider(name = "playerId")
-  public Object[][] playerId() {
-    return new Object[][]{{1}};
-  }
-
-  @DataProvider(name = "invalidPlayerId")
-  public Object[][] invalidPlayerId() {
-    int id = Integer.parseInt(Helper.getRandomNumber());
-    return new Object[][]{{id}};
-  }
-
   /**
-   * @param team fetches the values from dataprovider teamDetails
+   * @param team Team Name
    */
   @Test(dataProvider = "teamDetails", priority = 1, groups = {"P0"})
   public void testCreatePlayerWithValidData(String team) {
@@ -46,9 +35,7 @@ public class PlayerTest {
     logger.info("Test verified successfully");
   }
 
-  /**
-   * test method to view all players
-   */
+  /*test to view all players*/
   @Test(groups = {"P0"})
   public void testViewAllPlayers() {
     Player[] viewPlayer = PlayerClient.viewAllPlayers();
@@ -56,23 +43,32 @@ public class PlayerTest {
     logger.info("Test verified successfully");
   }
 
+  @DataProvider(name = "playerId")
+  public Object[][] playerId() {
+    return new Object[][]{{1}};
+  }
+
   /**
-   * @param id fetches the value from data provider playerId
+   * @param id Player id
    */
-  @Test(dataProvider = "playerId",groups = {"P0"})
+  @Test(dataProvider = "playerId", groups = {"P0"})
   public void testFetchPlayerByIdWithValidData(int id) {
     Player fetchPlayerByIdWithValidData = PlayerClient.fetchPlayerByIdWithValidData(id);
     verifyFetchPlayerByIdWithValidData(fetchPlayerByIdWithValidData, id);
     logger.info("Test player fetched successfully");
   }
 
+  @DataProvider(name = "invalidPlayerId")
+  public Object[][] invalidPlayerId() {
+    int id = Integer.parseInt(Helper.getRandomNumber());
+    return new Object[][]{{id}};
+  }
+  /*tests the response when invalid player id is passed.*/
+
   /**
-   * @param id fetches the value from data provider invalidPlayerId
-   *           this test method will fail as we
-   *           are expecting 400 as status code and error as Bad request instead on 500 internal
-   *           server error
+   * @param id Player Id
    */
-  @Test(dataProvider = "invalidPlayerId",groups = {"P1"})
+  @Test(dataProvider = "invalidPlayerId", groups = {"P1"})
   public void testFetchPlayerByIdWithInvalidData(int id) {
     Error error = PlayerClient.fetchPlayerByIdWithInvalidData(id);
     verifyFetchPlayerByIdWithInvalidData(error, id);
