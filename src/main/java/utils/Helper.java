@@ -1,8 +1,5 @@
 package utils;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
 import java.util.Random;
 
 public class Helper {
@@ -17,19 +14,13 @@ public class Helper {
     return sb.toString();
   }
 
-  public static String getRandomName(){
+  public static String getRandomName() {
     return generateRandomChar(8);
   }
+
   public static String getRandomNumber() {
     Random random = new Random();
     int number = random.nextInt(9999999);
     return Integer.toString(number);
-  }
-
-  public static ObjectMapper mapper() {
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-    mapper.registerModule(new JodaModule());
-    return mapper;
   }
 }

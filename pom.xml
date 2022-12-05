@@ -187,9 +187,10 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surefire-plugin.version}</version>
         <configuration>
-          <!--<suiteXmlFiles>
-            <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
-          </suiteXmlFiles>-->
+          <suiteXmlFiles>
+            <suiteXmlFile>src/test/resources/test-suites/worldcup-backend.xml</suiteXmlFile>
+            <suiteXmlFile>src/test/resources/test-suites/worldcup-frontend.xml</suiteXmlFile>
+          </suiteXmlFiles>
         </configuration>
       </plugin>
       <plugin>
